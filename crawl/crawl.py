@@ -5,22 +5,22 @@ import googlesearch
 import os
 import logging
 
-logging.basicConfig(filename='crawl.log',
+logging.basicConfig(filename='../crawl.log',
     format="%(asctime)s %(levelname)s %(module)s %(message)s",
     level=10)
 
 logger = logging.getLogger(__name__)
-df_y = pd.read_csv(open('../data/y.txt'))
+df_y = pd.read_csv(open('../../data/y.txt'))
 df_y = df_y[df_y.y.str.contains('>')==True]
-print(df_y.shape)
+logger.debug("topics loaded. shape:{}".format(df_y.shape))
 
-data_dir = '../data/topics_data/'
+data_dir = '../../data/topics_data/'
 d = {}
-for index, row in df_y[2:4].iterrows():
+for index, row in df_y[5:40].iterrows():
     query = row['y']
     query = query.replace('>',' ')
     cur_dir = row['y'].replace(',','').replace('> ','__').replace(' ','_')
-    for url in googlesearch.search(query, num=10,stop=100):
+    for url in googlesearch.search(query, num=10,stop=100, user_agent=googlesearch.get_random_user_agent()):
         logger.debug("query:{},url: {}".format(query,url))
         dir_our = os.path.join(data_dir,cur_dir)
         os.makedirs(dir_our,exist_ok=True)
