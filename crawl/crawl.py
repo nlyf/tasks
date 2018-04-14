@@ -20,6 +20,7 @@ for index, row in df_y[2:4].iterrows():
     query = row['y']
     query = query.replace('>',' ')
     cur_dir = row['y'].replace(',','').replace('> ','__').replace(' ','_')
+    print(query)
     for url in googlesearch.search(query, num=10,stop=100):
         logger.debug("query:{},url: {}".format(query,url))
         dir_our = os.path.join(data_dir,cur_dir)
