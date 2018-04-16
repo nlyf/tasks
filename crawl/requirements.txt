@@ -1,0 +1,3 @@
+pandas
+requests
+git+git://github.com/MarioVilas/googlesearch#egg=googlesearch
